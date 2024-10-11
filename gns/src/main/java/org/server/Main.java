@@ -1,43 +1,31 @@
 package org.server;
 
-import org.server.Gthread;
-import org.server.IpcThread;
-
 import java.util.ArrayList;
 
 
 
 public class Main {
-    static ArrayList<Gthread> g_thread_list = new ArrayList<Gthread>();
+    static ArrayList<gthread> g_thread_list = new ArrayList<gthread>();
 
     public static void main(String[] args) {
 
-        System.out.println("start Deamon..!");
+        System.out.println("Process Started.");
 
-        int thread_num = 0;
+        procmgmt pmt = procmgmt.getInstance();
 
-        IpcThread orthopaedic = new IpcThread();
-        g_thread_list.add(orthopaedic);
-        thread_num++;
+        // IpcThread orthopaedic = new IpcThread("IPC_thread");
+        // g_thread_list.add(orthopaedic);
+        convertfilethread cov = new convertfilethread("convertfilethread");
+        g_thread_list.add(cov);
 
-
-        for(int idx = 0; idx <thread_num; idx++){
-            Gthread th = g_thread_list.get(idx);
+        for (gthread th : g_thread_list) {
             th.run();
         }
 
-        while(true){
-            for (Gthread th : g_thread_list) {
-                if ( th.get_is_running() == true){
-                    continue;
-                }
-                System.out.println("All thread Stopped.");
-                break;
-            }
+        while(0 < pmt.get_count()){
+            System.out.println("thread count (" + pmt.get_count() + ")");
         }
 
         System.out.println("Process Stopped.");
-
-
     }
 }

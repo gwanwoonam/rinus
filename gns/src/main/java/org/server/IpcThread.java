@@ -1,11 +1,12 @@
 package org.server;
 
-public class IpcThread extends Gthread {
+public class ipcthread extends gthread {
+    public ipcthread(String name){
+        super(name);
+    }
 
     @Override
-    protected boolean on_thread_loop(){
-        System.out.println("start Ipc Thread..!");
-        Thread.sleep(1);
+    protected boolean on_thread_loop() {
         return true;
     }
 }
