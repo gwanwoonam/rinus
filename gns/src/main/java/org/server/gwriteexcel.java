@@ -5,6 +5,7 @@ import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,7 +25,7 @@ public class gwriteexcel {
     String filepath;
 
     public gwriteexcel(String path){
-        path = filepath;
+        filepath = path;
         workbook = new SXSSFWorkbook();
         sheet = workbook.createSheet("sheet1");
         row = sheet.createRow(cur_row);
@@ -34,17 +35,23 @@ public class gwriteexcel {
     void write_data(int col, String str){
         cell = row.createCell(col);
         cell.setCellValue(str);
+        cols++;
     }
 
     void create_nextrow(){
         cur_row++;
         row = sheet.createRow(cur_row);
+        rows++;
     }
 
     boolean makefile () {
         try {
             File file = new File(filepath);
-            file.createNewFile();
+            boolean fileCreated = file.createNewFile();
+            if (!fileCreated) {
+                throw new IOException("Unable to create file at specified path. It already exists");
+            }
+
 
             FileOutputStream fos = null;
 

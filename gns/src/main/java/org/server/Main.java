@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 
 public class Main {
+
+    static String PROCESS_NAME = "Converter Ver1.0";
     static ArrayList<gthread> g_thread_list = new ArrayList<gthread>();
 
     public static void main(String[] args) {
 
-        System.out.println("Process Started.");
+        System.out.println(PROCESS_NAME +" Process Started.");
 
         procmgmt pmt = procmgmt.getInstance();
 
@@ -26,6 +28,6 @@ public class Main {
             System.out.println("thread count (" + pmt.get_count() + ")");
         }
 
-        System.out.println("Process Stopped.");
+        System.out.println(PROCESS_NAME + " Process Stopped.");
     }
 }
